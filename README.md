@@ -22,5 +22,18 @@ Simple Popup Notification inspired by Android Toast.
 + (void)ks_showToast:(id)toast;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration;
 ```
+
+###Usage
+```
+/// show NSString
+[KSToastView ks_showToast:@"Across the Great Wall we can reach every corner in the world."];
+
+/// show NSObject description with 2 seconds.
+[KSToastView ks_showToast:self duration:2.0f];
+```
+
+###Installation
+Just add KSToastView.h/m files to your Project.
+
 ###License
 The MIT License (MIT)
