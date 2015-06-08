@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		A9FE215F1B254A0B0058D2C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FE215E1B254A0B0058D2C1 /* main.m */; };
 		A9FE21621B254A0B0058D2C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FE21611B254A0B0058D2C1 /* AppDelegate.m */; };
-		A9FE21651B254A0B0058D2C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FE21641B254A0B0058D2C1 /* ViewController.m */; };
 		A9FE21681B254A0B0058D2C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9FE21661B254A0B0058D2C1 /* Main.storyboard */; };
 		A9FE216A1B254A0B0058D2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9FE21691B254A0B0058D2C1 /* Images.xcassets */; };
 		A9FE216D1B254A0B0058D2C1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9FE216B1B254A0B0058D2C1 /* LaunchScreen.xib */; };
 		A9FE21791B254A0B0058D2C1 /* KSToastViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FE21781B254A0B0058D2C1 /* KSToastViewDemoTests.m */; };
+		A9FE218A1B255DCF0058D2C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FE21891B255DCF0058D2C1 /* ViewController.m */; };
+		A9FE21951B25620E0058D2C1 /* KSToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FE21941B25620E0058D2C1 /* KSToastView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +33,16 @@
 		A9FE215E1B254A0B0058D2C1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9FE21601B254A0B0058D2C1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A9FE21611B254A0B0058D2C1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A9FE21631B254A0B0058D2C1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A9FE21641B254A0B0058D2C1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A9FE21671B254A0B0058D2C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A9FE21691B254A0B0058D2C1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A9FE216C1B254A0B0058D2C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A9FE21721B254A0B0058D2C1 /* KSToastViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSToastViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9FE21771B254A0B0058D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9FE21781B254A0B0058D2C1 /* KSToastViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSToastViewDemoTests.m; sourceTree = "<group>"; };
+		A9FE21881B255DCF0058D2C1 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A9FE21891B255DCF0058D2C1 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A9FE21931B25620E0058D2C1 /* KSToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSToastView.h; path = KSToastView/KSToastView.h; sourceTree = SOURCE_ROOT; };
+		A9FE21941B25620E0058D2C1 /* KSToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSToastView.m; path = KSToastView/KSToastView.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +84,11 @@
 		A9FE215B1B254A0B0058D2C1 /* KSToastViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A9FE21961B2562120058D2C1 /* KSToastView */,
 				A9FE21601B254A0B0058D2C1 /* AppDelegate.h */,
 				A9FE21611B254A0B0058D2C1 /* AppDelegate.m */,
-				A9FE21631B254A0B0058D2C1 /* ViewController.h */,
-				A9FE21641B254A0B0058D2C1 /* ViewController.m */,
+				A9FE21881B255DCF0058D2C1 /* ViewController.h */,
+				A9FE21891B255DCF0058D2C1 /* ViewController.m */,
 				A9FE21661B254A0B0058D2C1 /* Main.storyboard */,
 				A9FE21691B254A0B0058D2C1 /* Images.xcassets */,
 				A9FE216B1B254A0B0058D2C1 /* LaunchScreen.xib */,
@@ -117,6 +121,15 @@
 				A9FE21771B254A0B0058D2C1 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A9FE21961B2562120058D2C1 /* KSToastView */ = {
+			isa = PBXGroup;
+			children = (
+				A9FE21931B25620E0058D2C1 /* KSToastView.h */,
+				A9FE21941B25620E0058D2C1 /* KSToastView.m */,
+			);
+			name = KSToastView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,8 +232,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9FE21651B254A0B0058D2C1 /* ViewController.m in Sources */,
+				A9FE21951B25620E0058D2C1 /* KSToastView.m in Sources */,
 				A9FE21621B254A0B0058D2C1 /* AppDelegate.m in Sources */,
+				A9FE218A1B255DCF0058D2C1 /* ViewController.m in Sources */,
 				A9FE215F1B254A0B0058D2C1 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
