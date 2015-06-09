@@ -1,6 +1,6 @@
 ###KSToastView
 
-Simple Popup Notification inspired by Android Toast.
+Simple Popup Notification inspired by [Android Toast Widget](http://developer.android.com/intl/zh-cn/guide/topics/ui/notifiers/toasts.html).
 
 ![ScreenShot](./ScreenShot/ScreenShot.gif)
 
