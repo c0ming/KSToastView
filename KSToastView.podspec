@@ -1,8 +1,8 @@
 Pod::Spec.new do |spec|
   spec.name         = 'KSToastView'
   spec.version      = '0.3'
-  spec.summary      = 'Simple Popup Notification inspired by Android Toast.'
-  spec.description  = 'Simple Popup Notification inspired by Android Toast.'
+  spec.summary      = 'Simple Popup Notification inspired by Android Toast Widget.'
+  spec.description  = 'Simple Popup Notification inspired by Android Toast Widget (http://developer.android.com/intl/zh-cn/guide/topics/ui/notifiers/toasts.html).'
   spec.homepage     = 'https://github.com/c0ming/KSToastView'
   spec.license = { :type => 'MIT', :file => 'LICENSE' }
   spec.author = { 'c0ming' => 'https://github.com/c0ming' }
