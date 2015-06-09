@@ -35,5 +35,11 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 ###Installation
 Just add KSToastView.h/m files to your Project.
 
+or use [CocoaPoads](https://cocoapods.org)
+```
+pod 'KSToastView', '0.2'
+```
+
+
 ###License
-The MIT License (MIT)
+[The MIT License (MIT)](./LICENSE)
