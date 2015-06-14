@@ -18,7 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[KSToastView ks_setAppearanceCornerRadius:8.0f];
+	[KSToastView ks_setAppearanceTextFont:[UIFont boldSystemFontOfSize:18.0f]];
+	[KSToastView ks_setAppearanceTextPadding:14.0f];
 	[KSToastView ks_setAppearanceMaxWidth:CGRectGetWidth([UIScreen mainScreen].bounds) - 64.0f];
+	[KSToastView ks_setAppearanceOffsetBottom:76.0];
 	return YES;
 }
 
