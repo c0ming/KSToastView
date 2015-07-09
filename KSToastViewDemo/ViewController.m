@@ -19,7 +19,9 @@
 static NSString *const reuseIdentifier = @"Cell";
 
 - (IBAction)showAction:(UIBarButtonItem *)sender {
-	[KSToastView ks_showToast:@"Across the Great Wall we can reach every corner in the world."];
+	[KSToastView ks_showToast:@"Across the Great Wall we can reach every corner in the world." duration:4.0f completion: ^{
+	    [KSToastView ks_showToast:@"Game Over!"];
+	}];
 }
 
 - (void)viewDidLoad {
