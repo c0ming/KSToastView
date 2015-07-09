@@ -32,6 +32,11 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 
 /// show NSObject description with 2 seconds.
 [KSToastView ks_showToast:self duration:2.0f];
+
+/// show with a completion block.
+[KSToastView ks_showToast:@"Start" duration:3.0f completion:^{
+    NSLog(@"%@", @"End!");
+}];
 ```
 
 ###Installation
