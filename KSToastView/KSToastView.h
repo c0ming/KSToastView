@@ -25,6 +25,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^KSToastBlock)(void);
+
 @interface KSToastView : UIView
 
 /**
@@ -46,5 +48,7 @@
  */
 + (void)ks_showToast:(id)toast;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration;
++ (void)ks_showToast:(id)toast completion:(KSToastBlock)completion;
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration completion:(KSToastBlock)completion;
 
 @end

@@ -101,6 +101,14 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 }
 
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration {
+	[KSToastView ks_showToast:toast duration:duration completion:nil];
+}
+
++ (void)ks_showToast:(id)toast completion:(KSToastBlock)completion {
+	[KSToastView ks_showToast:toast duration:_duration completion:completion];
+}
+
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration completion:(KSToastBlock)completion {
 	NSString *toastText = [NSString stringWithFormat:@"%@", toast];
 	if (toastText.length < 1) {
 		return;
@@ -129,6 +137,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		    return;
 		}
 		[[keyWindowView viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
+		[keyWindowView endEditing:YES];
 
 		CGSize toastLabelSize = [toastLabel sizeThatFits:CGSizeMake([self _maxWidth] - _textPadding * 2.0f, [self _maxHeight] - _textPadding * 2.0f)];
 		CGFloat toastViewWidth = toastLabelSize.width + _textPadding * 2.0f;
@@ -171,6 +180,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		                                                          attribute:NSLayoutAttributeCenterX
 		                                                         multiplier:1.0f
 		                                                           constant:0.0f]];
+		[keyWindowView layoutIfNeeded];
 
 		[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
 		    toastView.alpha = 1.0f;
@@ -181,6 +191,11 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 			    toastView.alpha = 0.0f;
 			} completion: ^(BOOL finished) {
 			    [toastView removeFromSuperview];
+
+			    KSToastBlock block = [completion copy];
+			    if (block) {
+			        block();
+				}
 			}];
 		});
 	});
