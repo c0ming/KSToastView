@@ -21,6 +21,8 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 ```
 + (void)ks_showToast:(id)toast;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration;
++ (void)ks_showToast:(id)toast completion:(KSToastBlock)completion;
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration completion:(KSToastBlock)completion;
 ```
 
 ###Usage
@@ -37,7 +39,7 @@ Just add KSToastView.h/m files to your Project,
 
 or use [CocoaPods](https://cocoapods.org).
 ```
-pod 'KSToastView', '0.3'
+pod 'KSToastView', '0.4'
 ```
 
 
