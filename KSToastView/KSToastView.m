@@ -30,6 +30,7 @@
 #define KS_TOAST_VIEW_OFFSET_LEFT_RIGHT  8.0f
 #define KS_TOAST_VIEW_OFFSET_TOP  76.0f
 #define KS_TOAST_VIEW_SHOW_DURATION  3.0f
+#define KS_TOAST_VIEW_SHOW_DELAY  0.0f
 #define KS_TOAST_VIEW_TAG 1024
 #define KS_TOAST_VIEW_TEXT_FONT_SIZE  14.0f
 #define KS_TOAST_VIEW_TEXT_PADDING  8.0f
@@ -97,18 +98,34 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 #pragma mark - ToastView Show
 
 + (void)ks_showToast:(id)toast {
-	[KSToastView ks_showToast:toast duration:_duration];
+	return [self ks_showToast:toast duration:_duration];
 }
 
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration {
-	[KSToastView ks_showToast:toast duration:duration completion:nil];
+	return [self ks_showToast:toast duration:duration delay:KS_TOAST_VIEW_SHOW_DELAY];
+}
+
++ (void)ks_showToast:(id)toast delay:(NSTimeInterval)delay {
+	return [self ks_showToast:toast duration:_duration delay:delay];
 }
 
 + (void)ks_showToast:(id)toast completion:(KSToastBlock)completion {
-	[KSToastView ks_showToast:toast duration:_duration completion:completion];
+	return [self ks_showToast:toast duration:_duration completion:completion];
+}
+
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay {
+	return [self ks_showToast:toast duration:duration delay:delay completion:nil];
 }
 
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration completion:(KSToastBlock)completion {
+	return [self ks_showToast:toast duration:duration delay:KS_TOAST_VIEW_SHOW_DELAY completion:completion];
+}
+
++ (void)ks_showToast:(id)toast delay:(NSTimeInterval)delay completion:(KSToastBlock)completion {
+	return [self ks_showToast:toast duration:_duration delay:delay completion:completion];
+}
+
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(KSToastBlock)completion {
 	NSString *toastText = [NSString stringWithFormat:@"%@", toast];
 	if (toastText.length < 1) {
 		return;
@@ -182,21 +199,23 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		                                                           constant:0.0f]];
 		[keyWindowView layoutIfNeeded];
 
-		[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
-		    toastView.alpha = 1.0f;
-		}];
-
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
-			    toastView.alpha = 0.0f;
-			} completion: ^(BOOL finished) {
-			    [toastView removeFromSuperview];
-
-			    KSToastBlock block = [completion copy];
-			    if (block) {
-			        block();
-				}
+			    toastView.alpha = 1.0f;
 			}];
+
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
+				    toastView.alpha = 0.0f;
+				} completion: ^(BOOL finished) {
+				    [toastView removeFromSuperview];
+
+				    KSToastBlock block = [completion copy];
+				    if (block) {
+				        block();
+					}
+				}];
+			});
 		});
 	});
 }
