@@ -268,9 +268,10 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 + (UIView *)_keyWindowView {
 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-	if (!window)
+	if (!window) {
 		window = [[UIApplication sharedApplication].windows firstObject];
-	return [[window subviews] firstObject];
+	}
+	return [[window subviews] lastObject];
 }
 
 @end
