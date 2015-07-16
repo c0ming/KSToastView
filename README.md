@@ -44,7 +44,7 @@ Just add KSToastView.h/m files to your Project,
 
 or use [CocoaPods](https://cocoapods.org).
 ```
-pod 'KSToastView', '0.4.1'
+pod 'KSToastView', '0.4.2'
 ```
 
 
