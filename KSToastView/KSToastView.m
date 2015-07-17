@@ -31,6 +31,7 @@
 #define KS_TOAST_VIEW_OFFSET_TOP  76.0f
 #define KS_TOAST_VIEW_SHOW_DURATION  3.0f
 #define KS_TOAST_VIEW_SHOW_DELAY  0.0f
+#define KS_TOAST_VIEW_SHOW_MIN_DELAY  1.0f
 #define KS_TOAST_VIEW_TAG 1024
 #define KS_TOAST_VIEW_TEXT_FONT_SIZE  14.0f
 #define KS_TOAST_VIEW_TEXT_PADDING  8.0f
@@ -131,7 +132,12 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		return;
 	}
 
-	dispatch_async(dispatch_get_main_queue(), ^{
+	// prevent modal view (e.g. show ToastView when UIAlerView button click) dimiss ToastView or you should show ToastView after modal view did dismiss.
+	if (delay > 0.0f && delay < KS_TOAST_VIEW_SHOW_MIN_DELAY) {
+		delay = KS_TOAST_VIEW_SHOW_MIN_DELAY;
+	}
+
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		UIView *toastView = [UIView new];
 		toastView.translatesAutoresizingMaskIntoConstraints = NO;
 		toastView.userInteractionEnabled = NO;
@@ -199,23 +205,21 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		                                                           constant:0.0f]];
 		[keyWindowView layoutIfNeeded];
 
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
+		    toastView.alpha = 1.0f;
+		}];
+
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
-			    toastView.alpha = 1.0f;
+			    toastView.alpha = 0.0f;
+			} completion: ^(BOOL finished) {
+			    [toastView removeFromSuperview];
+
+			    KSToastBlock block = [completion copy];
+			    if (block) {
+			        block();
+				}
 			}];
-
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
-				    toastView.alpha = 0.0f;
-				} completion: ^(BOOL finished) {
-				    [toastView removeFromSuperview];
-
-				    KSToastBlock block = [completion copy];
-				    if (block) {
-				        block();
-					}
-				}];
-			});
 		});
 	});
 }
