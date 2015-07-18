@@ -21,8 +21,12 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 ```
 + (void)ks_showToast:(id)toast;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration;
++ (void)ks_showToast:(id)toast delay:(NSTimeInterval)delay;
 + (void)ks_showToast:(id)toast completion:(KSToastBlock)completion;
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration completion:(KSToastBlock)completion;
++ (void)ks_showToast:(id)toast delay:(NSTimeInterval)delay completion:(KSToastBlock)completion;
++ (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(KSToastBlock)completion;
 ```
 
 ###Usage
