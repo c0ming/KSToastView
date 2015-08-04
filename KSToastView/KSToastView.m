@@ -39,13 +39,13 @@
 static UIColor *_backgroundColor = nil;
 static UIColor *_textColor = nil;
 static UIFont *_textFont = nil;
-static CGFloat _cornerRadius = 0.0f;
+static CGFloat _cornerRadius = 20.0f;
 static CGFloat _duration = KS_TOAST_VIEW_SHOW_DURATION;
 static CGFloat _maxWidth = 0.0f;
 static CGFloat _maxHeight = 0.0f;
 static CGFloat _offsetBottom = KS_TOAST_VIEW_OFFSET_BOTTOM;
 static CGFloat _offsetTop = KS_TOAST_VIEW_OFFSET_TOP;
-static CGFloat _textPadding = KS_TOAST_VIEW_TEXT_PADDING;
+static UIEdgeInsets _textInsets;
 static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 @interface KSToastView ()
@@ -88,8 +88,8 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 	_textFont = [textFont copy];
 }
 
-+ (void)ks_setAppearanceTextPadding:(CGFloat)textPadding {
-	_textPadding = textPadding;
++ (void)ks_setAppearanceTextInsets:(UIEdgeInsets)textInsets {
+	_textInsets = textInsets;
 }
 
 + (void)ks_setToastViewShowDuration:(NSTimeInterval)duration {
@@ -162,9 +162,18 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		[[keyWindowView viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
 		[keyWindowView endEditing:YES];
 
-		CGSize toastLabelSize = [toastLabel sizeThatFits:CGSizeMake([self _maxWidth] - _textPadding * 2.0f, [self _maxHeight] - _textPadding * 2.0f)];
-		CGFloat toastViewWidth = toastLabelSize.width + _textPadding * 2.0f;
-		CGFloat toastViewHeight = toastLabelSize.height + _textPadding * 2.0f;
+		if (UIEdgeInsetsEqualToEdgeInsets(_textInsets, UIEdgeInsetsZero)) {
+		    _textInsets = UIEdgeInsetsMake(10.0f, 20.0f, 10.0f, 20.0f);
+		}
+
+		CGFloat top = _textInsets.top;
+		CGFloat left = _textInsets.left;
+		CGFloat bottom = _textInsets.bottom;
+		CGFloat right = _textInsets.right;
+
+		CGSize toastLabelSize = [toastLabel sizeThatFits:CGSizeMake([self _maxWidth] - (left + right), [self _maxHeight] - (top + bottom))];
+		CGFloat toastViewWidth = toastLabelSize.width + (left + right);
+		CGFloat toastViewHeight = toastLabelSize.height + (top + bottom);
 
 		if (toastViewWidth > _maxWidth) {
 		    toastViewWidth = _maxWidth;
@@ -179,11 +188,11 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		[toastView addSubview:toastLabel];
 		[keyWindowView addSubview:toastView];
 
-		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%@)-[toastLabel]-(%@)-|", @(_textPadding), @(_textPadding)]
+		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%@)-[toastLabel]-(%@)-|", @(left), @(right)]
 		                                                                  options:0
 		                                                                  metrics:nil
 		                                                                    views:views]];
-		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%@)-[toastLabel]-(%@)-|", @(_textPadding), @(_textPadding)]
+		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%@)-[toastLabel]-(%@)-|", @(top), @(bottom)]
 		                                                                  options:0
 		                                                                  metrics:nil
 		                                                                    views:views]];
@@ -242,7 +251,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 + (UIColor *)_backgroundColor {
 	if (_backgroundColor == nil) {
-		_backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+		_backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6f];
 	}
 	return _backgroundColor;
 }

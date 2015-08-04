@@ -40,7 +40,7 @@ typedef void (^KSToastBlock)(void);
 + (void)ks_setAppearanceTextAligment:(NSTextAlignment)textAlignment;
 + (void)ks_setAppearanceTextColor:(UIColor *)textColor;
 + (void)ks_setAppearanceTextFont:(UIFont *)textFont;
-+ (void)ks_setAppearanceTextPadding:(CGFloat)textPadding;
++ (void)ks_setAppearanceTextInsets:(UIEdgeInsets)textInsets;
 + (void)ks_setToastViewShowDuration:(NSTimeInterval)duration;
 
 /**
