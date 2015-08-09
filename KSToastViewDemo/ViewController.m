@@ -20,7 +20,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (IBAction)showAction:(UIBarButtonItem *)sender {
 	[KSToastView ks_showToast:@"Across the Great Wall we can reach every corner in the world." duration:4.0f completion: ^{
-	    [KSToastView ks_showToast:@"Game Over!" delay:1.0f];
+	    [KSToastView ks_showToast:@"Game Over!" delay:0.5f];
 	}];
 }
 
