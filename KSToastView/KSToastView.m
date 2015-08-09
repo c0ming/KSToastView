@@ -31,15 +31,13 @@
 #define KS_TOAST_VIEW_OFFSET_TOP  76.0f
 #define KS_TOAST_VIEW_SHOW_DURATION  3.0f
 #define KS_TOAST_VIEW_SHOW_DELAY  0.0f
-#define KS_TOAST_VIEW_SHOW_MIN_DELAY  1.0f
 #define KS_TOAST_VIEW_TAG 1024
-#define KS_TOAST_VIEW_TEXT_FONT_SIZE  14.0f
-#define KS_TOAST_VIEW_TEXT_PADDING  8.0f
+#define KS_TOAST_VIEW_TEXT_FONT_SIZE  17.0f
 
 static UIColor *_backgroundColor = nil;
 static UIColor *_textColor = nil;
 static UIFont *_textFont = nil;
-static CGFloat _cornerRadius = 20.0f;
+static CGFloat _cornerRadius = 0.0f;
 static CGFloat _duration = KS_TOAST_VIEW_SHOW_DURATION;
 static CGFloat _maxWidth = 0.0f;
 static CGFloat _maxHeight = 0.0f;
@@ -132,18 +130,19 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		return;
 	}
 
-	// prevent modal view (e.g. show ToastView when UIAlerView button click) dimiss ToastView or you should show ToastView after modal view did dismiss.
-	if (delay > 0.0f && delay < KS_TOAST_VIEW_SHOW_MIN_DELAY) {
-		delay = KS_TOAST_VIEW_SHOW_MIN_DELAY;
-	}
-
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		UIView *keyWindowView = [self _keyWindowView];
+		if (!keyWindowView) {
+		    return;
+		}
+		[[keyWindowView viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
+		[keyWindowView endEditing:YES];
+
 		UIView *toastView = [UIView new];
 		toastView.translatesAutoresizingMaskIntoConstraints = NO;
 		toastView.userInteractionEnabled = NO;
 		toastView.backgroundColor = [self _backgroundColor];
 		toastView.tag = KS_TOAST_VIEW_TAG;
-		toastView.layer.cornerRadius = _cornerRadius;
 		toastView.clipsToBounds = YES;
 		toastView.alpha = 0.0f;
 
@@ -155,44 +154,49 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		toastLabel.textAlignment = _textAligment;
 		toastLabel.numberOfLines = 0;
 
-		UIView *keyWindowView = [self _keyWindowView];
-		if (!keyWindowView) {
-		    return;
-		}
-		[[keyWindowView viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
-		[keyWindowView endEditing:YES];
+		[self _maxWidth];
+		[self _maxHeight];
 
+		CGFloat toastTextHeight = [toastText sizeWithAttributes:@{ NSFontAttributeName:[self _textFont], }].height;
+
+		// ToastView's textInsets
 		if (UIEdgeInsetsEqualToEdgeInsets(_textInsets, UIEdgeInsetsZero)) {
-		    _textInsets = UIEdgeInsetsMake(10.0f, 20.0f, 10.0f, 20.0f);
+		    _textInsets = UIEdgeInsetsMake(toastTextHeight / 2.0f, toastTextHeight, toastTextHeight / 2.0f, toastTextHeight);
 		}
 
-		CGFloat top = _textInsets.top;
-		CGFloat left = _textInsets.left;
-		CGFloat bottom = _textInsets.bottom;
-		CGFloat right = _textInsets.right;
+		// ToastView's cornerRadius
+		toastTextHeight += (_textInsets.top + _textInsets.bottom);
+		if (toastTextHeight > _maxHeight) {
+		    toastTextHeight = _maxHeight;
+		}
+		if (_cornerRadius <= 0.0f || _cornerRadius > toastTextHeight / 2.0f) {
+		    toastView.layer.cornerRadius = toastTextHeight / 2.0f;
+		} else {
+		    toastView.layer.cornerRadius = _cornerRadius;
+		}
 
-		CGSize toastLabelSize = [toastLabel sizeThatFits:CGSizeMake([self _maxWidth] - (left + right), [self _maxHeight] - (top + bottom))];
-		CGFloat toastViewWidth = toastLabelSize.width + (left + right);
-		CGFloat toastViewHeight = toastLabelSize.height + (top + bottom);
+		// ToastView's size
+		CGSize toastLabelSize = [toastLabel sizeThatFits:CGSizeMake(_maxWidth - (_textInsets.left + _textInsets.right), _maxHeight - (_textInsets.top + _textInsets.bottom))];
+		CGFloat toastViewWidth = toastLabelSize.width + (_textInsets.left + _textInsets.right);
+		CGFloat toastViewHeight = toastLabelSize.height + (_textInsets.top + _textInsets.bottom);
 
 		if (toastViewWidth > _maxWidth) {
 		    toastViewWidth = _maxWidth;
 		}
 
-		if (toastViewHeight > _maxWidth) {
+		if (toastViewHeight > _maxHeight) {
 		    toastViewHeight = _maxHeight;
 		}
 
 		NSDictionary *views = NSDictionaryOfVariableBindings(toastLabel, toastView);
-
 		[toastView addSubview:toastLabel];
 		[keyWindowView addSubview:toastView];
 
-		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%@)-[toastLabel]-(%@)-|", @(left), @(right)]
+		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%@)-[toastLabel]-(%@)-|", @(_textInsets.left), @(_textInsets.right)]
 		                                                                  options:0
 		                                                                  metrics:nil
 		                                                                    views:views]];
-		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%@)-[toastLabel]-(%@)-|", @(top), @(bottom)]
+		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%@)-[toastLabel]-(%@)-|", @(_textInsets.top), @(_textInsets.bottom)]
 		                                                                  options:0
 		                                                                  metrics:nil
 		                                                                    views:views]];
@@ -231,6 +235,12 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 			}];
 		});
 	});
+}
+
+#pragma mark - Deprecated
+
++ (void)ks_setAppearanceTextPadding:(CGFloat)textPadding {
+	// nothing
 }
 
 #pragma mark - Private Methods
@@ -284,7 +294,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 	if (!window) {
 		window = [[UIApplication sharedApplication].windows firstObject];
 	}
-	return [[window subviews] lastObject];
+	return window;
 }
 
 @end

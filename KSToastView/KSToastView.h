@@ -55,4 +55,10 @@ typedef void (^KSToastBlock)(void);
 + (void)ks_showToast:(id)toast delay:(NSTimeInterval)delay completion:(KSToastBlock)completion;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(KSToastBlock)completion;
 
+/**
+ *  @Deprecated
+ *  Please use + (void)ks_setAppearanceTextInsets:(UIEdgeInsets)textInsets;
+ */
++ (void)ks_setAppearanceTextPadding:(CGFloat)textPadding __attribute__((deprecated));
+
 @end

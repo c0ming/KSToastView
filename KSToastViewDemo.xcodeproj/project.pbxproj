@@ -432,6 +432,7 @@
 				A9FE217E1B254A0B0058D2C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A9FE217F1B254A0B0058D2C1 /* Build configuration list for PBXNativeTarget "KSToastViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +441,7 @@
 				A9FE21811B254A0B0058D2C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
