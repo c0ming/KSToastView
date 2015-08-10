@@ -157,7 +157,8 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		[self _maxWidth];
 		[self _maxHeight];
 
-		CGFloat toastTextHeight = [toastText sizeWithAttributes:@{ NSFontAttributeName:[self _textFont], }].height;
+		// One line text's height
+		CGFloat toastTextHeight = [@"KS" sizeWithAttributes:@{ NSFontAttributeName:[self _textFont], }].height;
 
 		// ToastView's textInsets
 		if (UIEdgeInsetsEqualToEdgeInsets(_textInsets, UIEdgeInsetsZero)) {
