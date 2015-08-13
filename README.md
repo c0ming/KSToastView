@@ -2,7 +2,7 @@
 
 Simple Popup Notification inspired by [Android Toast Widget](http://developer.android.com/intl/zh-cn/guide/topics/ui/notifiers/toasts.html).
 
-![ScreenShot](./ScreenShot/ScreenShot@2x.png)
+![ScreenShot](./ScreenShot/ScreenShot.gif)
 
 ###KSToastView Configure
 ```
