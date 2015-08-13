@@ -219,8 +219,6 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		                                                           constant:0.0f]];
 		[keyWindowView layoutIfNeeded];
 
-		NSLog(@"%@", keyWindowView.constraints);
-
 		[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
 		    toastView.alpha = 1.0f;
 		}];
