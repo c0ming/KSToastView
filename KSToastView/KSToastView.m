@@ -158,7 +158,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		[self _maxHeight];
 
 		// One line text's height
-		CGFloat toastTextHeight = [@"KS" sizeWithAttributes:@{ NSFontAttributeName:[self _textFont], }].height;
+		CGFloat toastTextHeight = [@"KS" sizeWithAttributes:@{ NSFontAttributeName:[self _textFont], }].height + 0.5f;
 
 		// ToastView's textInsets
 		if (UIEdgeInsetsEqualToEdgeInsets(_textInsets, UIEdgeInsetsZero)) {
@@ -178,8 +178,8 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 		// ToastView's size
 		CGSize toastLabelSize = [toastLabel sizeThatFits:CGSizeMake(_maxWidth - (_textInsets.left + _textInsets.right), _maxHeight - (_textInsets.top + _textInsets.bottom))];
-		CGFloat toastViewWidth = toastLabelSize.width + (_textInsets.left + _textInsets.right);
-		CGFloat toastViewHeight = toastLabelSize.height + (_textInsets.top + _textInsets.bottom);
+		CGFloat toastViewWidth = (toastLabelSize.width + 0.5f) + (_textInsets.left + _textInsets.right);
+		CGFloat toastViewHeight = (toastLabelSize.height + 0.5f) + (_textInsets.top + _textInsets.bottom);
 
 		if (toastViewWidth > _maxWidth) {
 		    toastViewWidth = _maxWidth;
@@ -218,6 +218,8 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		                                                         multiplier:1.0f
 		                                                           constant:0.0f]];
 		[keyWindowView layoutIfNeeded];
+
+		NSLog(@"%@", keyWindowView.constraints);
 
 		[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
 		    toastView.alpha = 1.0f;
