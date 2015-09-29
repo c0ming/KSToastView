@@ -41,6 +41,7 @@ static CGFloat _cornerRadius = 0.0f;
 static CGFloat _duration = KS_TOAST_VIEW_SHOW_DURATION;
 static CGFloat _maxWidth = 0.0f;
 static CGFloat _maxHeight = 0.0f;
+static NSInteger _maxLines = 0;
 static CGFloat _offsetBottom = KS_TOAST_VIEW_OFFSET_BOTTOM;
 static CGFloat _offsetTop = KS_TOAST_VIEW_OFFSET_TOP;
 static UIEdgeInsets _textInsets;
@@ -62,12 +63,12 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 	_cornerRadius = cornerRadius;
 }
 
-+ (void)ks_setAppearanceMaxHeight:(CGFloat)maxHeight {
-	_maxHeight = maxHeight;
-}
-
 + (void)ks_setAppearanceMaxWidth:(CGFloat)maxWidth {
 	_maxWidth = maxWidth;
+}
+
++ (void)ks_setAppearanceMaxLines:(CGFloat)maxLines {
+	_maxLines = maxLines;
 }
 
 + (void)ks_setAppearanceOffsetBottom:(CGFloat)offsetBottom {
@@ -165,13 +166,8 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		    _textInsets = UIEdgeInsetsMake(toastTextHeight / 2.0f, toastTextHeight, toastTextHeight / 2.0f, toastTextHeight);
 		}
 
-		// ToastView's cornerRadius
-		toastTextHeight += (_textInsets.top + _textInsets.bottom);
-		if (toastTextHeight > _maxHeight) {
-		    toastTextHeight = _maxHeight;
-		}
 		if (_cornerRadius <= 0.0f || _cornerRadius > toastTextHeight / 2.0f) {
-		    toastView.layer.cornerRadius = toastTextHeight / 2.0f;
+		    toastView.layer.cornerRadius = (toastTextHeight + _textInsets.top + _textInsets.bottom) / 2.0f;
 		} else {
 		    toastView.layer.cornerRadius = _cornerRadius;
 		}
@@ -183,6 +179,10 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 		if (toastViewWidth > _maxWidth) {
 		    toastViewWidth = _maxWidth;
+		}
+
+		if (_maxLines > 0) {
+		    toastViewHeight = toastTextHeight * _maxLines + _textInsets.top + _textInsets.bottom;
 		}
 
 		if (toastViewHeight > _maxHeight) {
@@ -242,6 +242,10 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 + (void)ks_setAppearanceTextPadding:(CGFloat)textPadding {
 	// nothing
+}
+
++ (void)ks_setAppearanceMaxHeight:(CGFloat)maxHeight {
+	//	_maxHeight = maxHeight;
 }
 
 #pragma mark - Private Methods

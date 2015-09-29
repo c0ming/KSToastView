@@ -34,8 +34,8 @@ typedef void (^KSToastBlock)(void);
  */
 + (void)ks_setAppearanceBackgroundColor:(UIColor *)backgroundColor;
 + (void)ks_setAppearanceCornerRadius:(CGFloat)cornerRadius;
-+ (void)ks_setAppearanceMaxHeight:(CGFloat)maxHeight;
 + (void)ks_setAppearanceMaxWidth:(CGFloat)maxWidth;
++ (void)ks_setAppearanceMaxLines:(CGFloat)maxLines;
 + (void)ks_setAppearanceOffsetBottom:(CGFloat)offsetBottom;
 + (void)ks_setAppearanceTextAligment:(NSTextAlignment)textAlignment;
 + (void)ks_setAppearanceTextColor:(UIColor *)textColor;
@@ -60,5 +60,11 @@ typedef void (^KSToastBlock)(void);
  *  Please use + (void)ks_setAppearanceTextInsets:(UIEdgeInsets)textInsets;
  */
 + (void)ks_setAppearanceTextPadding:(CGFloat)textPadding __attribute__((deprecated));
+
+/**
+ *  @Deprecated
+ *  Please use + (void)ks_setAppearanceMaxLines:(CGFloat)maxLines;
+ */
++ (void)ks_setAppearanceMaxHeight:(CGFloat)maxHeight __attribute__((deprecated));
 
 @end
