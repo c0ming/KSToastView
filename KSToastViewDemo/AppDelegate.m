@@ -20,6 +20,7 @@
 	[KSToastView ks_setAppearanceTextFont:[UIFont boldSystemFontOfSize:17.0f]];
 	[KSToastView ks_setAppearanceMaxWidth:CGRectGetWidth([UIScreen mainScreen].bounds) - 64.0f];
 	[KSToastView ks_setAppearanceOffsetBottom:76.0];
+    [KSToastView ks_setAppearanceMaxLines:2];
 	return YES;
 }
 
