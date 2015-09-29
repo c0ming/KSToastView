@@ -8,8 +8,8 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 ```
 + (void)ks_setAppearanceBackgroundColor:(UIColor *)backgroundColor;
 + (void)ks_setAppearanceCornerRadius:(CGFloat)cornerRadius;
-+ (void)ks_setAppearanceMaxHeight:(CGFloat)maxHeight;
 + (void)ks_setAppearanceMaxWidth:(CGFloat)maxWidth;
++ (void)ks_setAppearanceMaxLines:(CGFloat)maxLines;
 + (void)ks_setAppearanceOffsetBottom:(CGFloat)offsetBottom;
 + (void)ks_setAppearanceTextAligment:(NSTextAlignment)textAlignment;
 + (void)ks_setAppearanceTextColor:(UIColor *)textColor;
@@ -48,7 +48,7 @@ Just add KSToastView.h/m files to your Project,
 
 or use [CocoaPods](https://cocoapods.org).
 ```
-pod 'KSToastView', '0.5.3'
+pod 'KSToastView', '0.5.5'
 ```
 
 
