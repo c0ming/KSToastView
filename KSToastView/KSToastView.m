@@ -67,7 +67,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 	_maxWidth = maxWidth;
 }
 
-+ (void)ks_setAppearanceMaxLines:(CGFloat)maxLines {
++ (void)ks_setAppearanceMaxLines:(NSInteger)maxLines {
 	_maxLines = maxLines;
 }
 

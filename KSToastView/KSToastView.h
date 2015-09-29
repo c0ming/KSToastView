@@ -35,7 +35,7 @@ typedef void (^KSToastBlock)(void);
 + (void)ks_setAppearanceBackgroundColor:(UIColor *)backgroundColor;
 + (void)ks_setAppearanceCornerRadius:(CGFloat)cornerRadius;
 + (void)ks_setAppearanceMaxWidth:(CGFloat)maxWidth;
-+ (void)ks_setAppearanceMaxLines:(CGFloat)maxLines;
++ (void)ks_setAppearanceMaxLines:(NSInteger)maxLines;
 + (void)ks_setAppearanceOffsetBottom:(CGFloat)offsetBottom;
 + (void)ks_setAppearanceTextAligment:(NSTextAlignment)textAlignment;
 + (void)ks_setAppearanceTextColor:(UIColor *)textColor;
