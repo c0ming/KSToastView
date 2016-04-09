@@ -295,11 +295,21 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 }
 
 + (UIView *)_keyWindowView {
-	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-	if (!window) {
-		window = [[UIApplication sharedApplication].windows firstObject];
-	}
-	return window;
+//	UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//	if (!window) {
+//		window = [[UIApplication sharedApplication].windows firstObject];
+//	}
+//	return window;
+    
+    NSArray *windows = [UIApplication sharedApplication].windows;
+    for(UIWindow *window in [windows reverseObjectEnumerator]) {
+        
+        if ([window isKindOfClass:[UIWindow class]] &&
+            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds))
+            
+            return window;
+    }
+    return [UIApplication sharedApplication].keyWindow;
 }
 
 @end
