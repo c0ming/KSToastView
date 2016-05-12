@@ -132,12 +132,12 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 	}
 
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		UIView *keyWindowView = [self _keyWindowView];
-		if (!keyWindowView) {
+		UIView *keyWindow = [self _keyWindow];
+		if (!keyWindow) {
 		    return;
 		}
-		[[keyWindowView viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
-		[keyWindowView endEditing:YES];
+		[[keyWindow viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
+		[keyWindow endEditing:YES];
 
 		UIView *toastView = [UIView new];
 		toastView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -191,7 +191,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 		NSDictionary *views = NSDictionaryOfVariableBindings(toastLabel, toastView);
 		[toastView addSubview:toastLabel];
-		[keyWindowView addSubview:toastView];
+		[keyWindow addSubview:toastView];
 
 		[toastView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%@)-[toastLabel]-(%@)-|", @(_textInsets.left), @(_textInsets.right)]
 		                                                                  options:0
@@ -202,22 +202,22 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		                                                                  metrics:nil
 		                                                                    views:views]];
 
-		[keyWindowView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[toastView(%@)]", @(toastViewWidth)]
-		                                                                      options:0
-		                                                                      metrics:nil
-		                                                                        views:views]];
-		[keyWindowView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(>=%@)-[toastView(<=%@)]-(%@)-|", @(_offsetTop), @(toastViewHeight), @(_offsetBottom)]
-		                                                                      options:0
-		                                                                      metrics:nil
-		                                                                        views:views]];
-		[keyWindowView addConstraint:[NSLayoutConstraint constraintWithItem:toastView
-		                                                          attribute:NSLayoutAttributeCenterX
-		                                                          relatedBy:NSLayoutRelationEqual
-		                                                             toItem:keyWindowView
-		                                                          attribute:NSLayoutAttributeCenterX
-		                                                         multiplier:1.0f
-		                                                           constant:0.0f]];
-		[keyWindowView layoutIfNeeded];
+		[keyWindow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[toastView(%@)]", @(toastViewWidth)]
+		                                                                  options:0
+		                                                                  metrics:nil
+		                                                                    views:views]];
+		[keyWindow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(>=%@)-[toastView(<=%@)]-(%@)-|", @(_offsetTop), @(toastViewHeight), @(_offsetBottom)]
+		                                                                  options:0
+		                                                                  metrics:nil
+		                                                                    views:views]];
+		[keyWindow addConstraint:[NSLayoutConstraint constraintWithItem:toastView
+		                                                      attribute:NSLayoutAttributeCenterX
+		                                                      relatedBy:NSLayoutRelationEqual
+		                                                         toItem:keyWindow
+		                                                      attribute:NSLayoutAttributeCenterX
+		                                                     multiplier:1.0f
+		                                                       constant:0.0f]];
+		[keyWindow layoutIfNeeded];
 
 		[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
 		    toastView.alpha = 1.0f;
@@ -294,22 +294,8 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 	return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? CGRectGetHeight([UIScreen mainScreen].bounds) : CGRectGetWidth([UIScreen mainScreen].bounds);
 }
 
-+ (UIView *)_keyWindowView {
-//	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//	if (!window) {
-//		window = [[UIApplication sharedApplication].windows firstObject];
-//	}
-//	return window;
-    
-    NSArray *windows = [UIApplication sharedApplication].windows;
-    for(UIWindow *window in [windows reverseObjectEnumerator]) {
-        
-        if ([window isKindOfClass:[UIWindow class]] &&
-            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds))
-            
-            return window;
-    }
-    return [UIApplication sharedApplication].keyWindow;
++ (UIView *)_keyWindow {
+	return [UIApplication sharedApplication].delegate.window;
 }
 
 @end
