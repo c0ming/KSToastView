@@ -46,6 +46,7 @@ static CGFloat _offsetBottom = KS_TOAST_VIEW_OFFSET_BOTTOM;
 static CGFloat _offsetTop = KS_TOAST_VIEW_OFFSET_TOP;
 static UIEdgeInsets _textInsets;
 static NSTextAlignment _textAligment = NSTextAlignmentCenter;
+UIView *toastView;
 
 @interface KSToastView ()
 
@@ -139,7 +140,7 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 		[[keyWindow viewWithTag:KS_TOAST_VIEW_TAG] removeFromSuperview];
 		[keyWindow endEditing:YES];
 
-		UIView *toastView = [UIView new];
+		toastView = [UIView new];
 		toastView.translatesAutoresizingMaskIntoConstraints = NO;
 		toastView.userInteractionEnabled = NO;
 		toastView.backgroundColor = [self _backgroundColor];
@@ -250,6 +251,28 @@ static NSTextAlignment _textAligment = NSTextAlignmentCenter;
 
 #pragma mark - Private Methods
 
++ (void)dismissToastView {
+	[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
+			    toastView.alpha = 0.0f;
+			} completion: ^(BOOL finished) {
+			    [toastView removeFromSuperview];
+			}];
+}
+
++ (void)dismissToastViewWithCompletion:(KSToastBlock)completion {
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[UIView animateWithDuration:KS_TOAST_VIEW_ANIMATION_DURATION animations: ^{
+			    toastView.alpha = 0.0f;
+			} completion: ^(BOOL finished) {
+			    [toastView removeFromSuperview];
+
+			    KSToastBlock block = [completion copy];
+			    if (block) {
+			        block();
+				}
+			}];
+		});
+}
 + (UIFont *)_textFont {
 	if (_textFont == nil) {
 		_textFont = [UIFont systemFontOfSize:KS_TOAST_VIEW_TEXT_FONT_SIZE];
