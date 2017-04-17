@@ -1,10 +1,10 @@
-###KSToastView
+### KSToastView
 
 Simple Popup Notification inspired by [Android Toast Widget](http://developer.android.com/intl/zh-cn/guide/topics/ui/notifiers/toasts.html).
 
 ![ScreenShot](./ScreenShot/ScreenShot.gif)
 
-###KSToastView Configure
+### KSToastView Configure
 ```
 + (void)ks_setAppearanceBackgroundColor:(UIColor *)backgroundColor;
 + (void)ks_setAppearanceCornerRadius:(CGFloat)cornerRadius;
@@ -17,7 +17,7 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 + (void)ks_setAppearanceTextInsets:(UIEdgeInsets)textInsets;
 + (void)ks_setToastViewShowDuration:(NSTimeInterval)duration;
 ```
-###KSToastView Show
+### KSToastView Show
 ```
 + (void)ks_showToast:(id)toast;
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration;
@@ -29,7 +29,7 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(KSToastBlock)completion;
 ```
 
-###Usage
+### Usage
 ```
 /// show NSString
 [KSToastView ks_showToast:@"Across the Great Wall we can reach every corner in the world."];
@@ -43,7 +43,7 @@ Simple Popup Notification inspired by [Android Toast Widget](http://developer.an
 }];
 ```
 
-###Installation
+### Installation
 Just add KSToastView.h/m files to your Project,
 
 or use [CocoaPods](https://cocoapods.org).
@@ -52,5 +52,5 @@ pod 'KSToastView', '0.5.7'
 ```
 
 
-###License
+### License
 [The MIT License (MIT)](./LICENSE)
