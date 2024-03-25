@@ -56,6 +56,12 @@ typedef void (^KSToastBlock)(void);
 + (void)ks_showToast:(id)toast duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(KSToastBlock)completion;
 
 /**
+ *  ToastView Dismiss
+ */
++ (void)dismissToastView;
++ (void)dismissToastViewWithCompletion:(KSToastBlock)completion;
+
+/**
  *  @Deprecated
  *  Please use + (void)ks_setAppearanceTextInsets:(UIEdgeInsets)textInsets;
  */
